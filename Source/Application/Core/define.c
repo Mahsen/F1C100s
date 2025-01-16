@@ -1,15 +1,15 @@
 /************************************************** Description *******************************************************/
 /*
-    File : main.cpp
+    File : define.c
     Programmer : Mohammad Lotfi
-    Used : main
+    Used : define
     Design Pattern : none
     Types of memory : Heap & Stack
     Total Tread : Nothing
     Site : https://www.mahsen.ir
     Tel : +989124662703
     Email : info@mahsen.ir
-    Last Update : 2025/1/14
+    Last Update : 2025/1/16
 */
 /************************************************** Warnings **********************************************************/
 /*
@@ -20,8 +20,7 @@
     Nothing
 */
 /************************************************** Includes **********************************************************/
-#include "Module/Print.hpp"
-#include "Driver/uart.h"
+#include "define.h"
 /************************************************** Defineds **********************************************************/
 /*
     Nothing
@@ -31,41 +30,28 @@
     Nothing
 */
 /************************************************** Variables *********************************************************/
-void MAIN_Blink(void);
+/*
+    Nothing
+*/
 /************************************************** Opjects ***********************************************************/
 /*
     Nothing
 */
 /************************************************** Functions *********************************************************/
-/* The main function start of program in cpp language */
-int main() {
-	
-	Print((char*)"Application: Start");
-	UART_Channel_Config(UART_CHANNEL_2, B115200, CS8, PARENB, CSTOPB);
-	Print((char*)"Application: Uart 2 inited");
-	UART_Channel_Send(UART_CHANNEL_2, (U8*)"Hello Mohammad\r\n", strlen("Hello Mohammad\r\n"));
-	Print((char*)"Application: Uart 2 Sent");	
-	Print((char*)"Application: End");
-	
-	//std::thread Task_Blink(MAIN_Blink);
-	//Task_Blink.detach(); 
-	
-	//while(true);
-	return 0;
-}
+/*
+    Nothing
+*/
 /************************************************** Tasks *************************************************************/
-void MAIN_Blink(void) {
-	while(true) {
-		static bool led = false;
-		char str[32];
-		sprintf(str, "gpio write PE2 %d", led);
-		system(str);
-		led ^= true;
-		usleep(300000);
-	}
-}
+/*
+    Nothing
+*/
 /************************************************** Vectors ***********************************************************/
 /*
     Nothing
 */
 /**********************************************************************************************************************/
+
+
+
+
+
