@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "uart.h": "c",
+        "thread": "c",
+        "print.hpp": "c",
+        "*.tcc": "c"
+    }
+}
