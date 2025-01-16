@@ -5,7 +5,7 @@
     Used : uart
     Design Pattern : none
     Types of memory : Heap & Stack
-    Total Tread : Nothing
+    Total Tread : one for receiving data
     Site : https://www.mahsen.ir
     Tel : +989124662703
     Email : info@mahsen.ir
@@ -14,6 +14,17 @@
 /************************************************** Warnings **********************************************************/
 /*
     Only for learning
+	
+	while(true) {
+		U16 Length = 0;
+		U8* Data = UART_Channel_Receive(UART_CHANNEL_2, &Length);
+		if (Data) {
+			Data[Length] = 0;
+			UART_Channel_Send(UART_CHANNEL_2, Data, Length);
+			Print((char*)Data);
+			UART_Channel_Clear(UART_CHANNEL_2);
+		}
+	}
 */
 /************************************************** Wizards ***********************************************************/
 /*
@@ -114,7 +125,7 @@ void UART_Task(void) {
 		for(int Index=0; Index<UART_CHANNEL_MAX; Index++) {
 			if(UART[Index].File) {
 				Length = read(UART[Index].File, Buffer, (UART_BUFFER_MAX - 1));
-				if(Length) {
+				if(Length && ((UART[Index].Receive.Length + Length) < (UART_BUFFER_MAX - 1))) {
 					memcpy((void*)&UART[Index].Receive.Data[UART[Index].Receive.Length], Buffer, Length);
 					UART[Index].Receive.Length += Length;
 				}

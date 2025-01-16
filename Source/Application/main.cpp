@@ -43,23 +43,23 @@ int main() {
 
 	Print((char*)"Application: Start");
 	UART_Channel_Config(UART_CHANNEL_2, B115200, CS8, PARENB, CSTOPB);
-	Print((char*)"Application: Uart 2 inited");
-	UART_Channel_Send(UART_CHANNEL_2, (U8*)"Hello Dear\r\n", strlen("Hello Dear\r\n"));
-	Print((char*)"Application: Uart 2 Sent");	
-	Print((char*)"Application: End");
-	
-	//std::thread Task_Blink(MAIN_Blink);
-	//Task_Blink.detach(); 
-	
+	Print((char*)"Application: Uart2 Inited");
+
+	std::thread Task_Blink(MAIN_Blink);
+	Task_Blink.detach(); 
+
 	while(true) {
 		U16 Length = 0;
 		U8* Data = UART_Channel_Receive(UART_CHANNEL_2, &Length);
 		if (Data) {
 			Data[Length] = 0;
+			UART_Channel_Send(UART_CHANNEL_2, Data, Length);
 			Print((char*)Data);
 			UART_Channel_Clear(UART_CHANNEL_2);
 		}
 	}
+
+	Print((char*)"Application: End");
 
 	//return 0;
 }
@@ -71,7 +71,7 @@ void MAIN_Blink(void) {
 		sprintf(str, "gpio write PE2 %d", led);
 		system(str);
 		led ^= true;
-		usleep(300000);
+		usleep(100000);
 	}
 }
 /************************************************** Vectors ***********************************************************/
