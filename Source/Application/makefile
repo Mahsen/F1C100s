@@ -13,6 +13,7 @@ SRCS = *.cpp \
 	Core/*.c
 
 all:
+	clear
 	mkdir -p $(BUILD_DIR)
 	$(CXX) $(CXXFLAGS) $(SRCS) -o $(TARGET) 
 	cp $(TARGET) ../buildroot-sinux/board/mahsen/sinux/f1/rootfs/root/

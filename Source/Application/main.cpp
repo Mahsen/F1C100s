@@ -39,19 +39,29 @@ void MAIN_Blink(void);
 /************************************************** Functions *********************************************************/
 /* The main function start of program in cpp language */
 int main() {
-	
+	UART_Init();
+
 	Print((char*)"Application: Start");
 	UART_Channel_Config(UART_CHANNEL_2, B115200, CS8, PARENB, CSTOPB);
 	Print((char*)"Application: Uart 2 inited");
-	UART_Channel_Send(UART_CHANNEL_2, (U8*)"Hello Mohammad\r\n", strlen("Hello Mohammad\r\n"));
+	UART_Channel_Send(UART_CHANNEL_2, (U8*)"Hello Dear\r\n", strlen("Hello Dear\r\n"));
 	Print((char*)"Application: Uart 2 Sent");	
 	Print((char*)"Application: End");
 	
 	//std::thread Task_Blink(MAIN_Blink);
 	//Task_Blink.detach(); 
 	
-	//while(true);
-	return 0;
+	while(true) {
+		U16 Length = 0;
+		U8* Data = UART_Channel_Receive(UART_CHANNEL_2, &Length);
+		if (Data) {
+			Data[Length] = 0;
+			Print((char*)Data);
+			UART_Channel_Clear(UART_CHANNEL_2);
+		}
+	}
+
+	//return 0;
 }
 /************************************************** Tasks *************************************************************/
 void MAIN_Blink(void) {
